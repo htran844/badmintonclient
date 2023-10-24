@@ -12,12 +12,31 @@ import AuthLayout from './routes/Auth/AuthLayout';
 import SignIn from './routes/Auth/SignIn';
 import SignUp from './routes/Auth/SignUp';
 import FogotPass from './routes/Auth/FogotPass';
+import ListProduct from './routes/Product/ListProduct';
+import DetailProduct from './routes/Product/DetailProduct';
+import ProductLayout from './routes/Product/ProductLayout';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root/>,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage/>,
+    children: [
+      {
+        path: "products",
+        element: <ProductLayout />,
+        children: [
+          {
+            path: "list",
+            element: <ListProduct />,
+          },
+          {
+            path: ":id",
+            element: <DetailProduct />,
+          },
+        ]
+      },
+    ]
   },
   {
     path: "auth",
@@ -37,6 +56,7 @@ const router = createBrowserRouter([
       },
     ]
   },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
